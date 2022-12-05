@@ -5,11 +5,11 @@ from mmdet.apis import inference_detector, init_detector
 
 class PoseDetector():
     
-    def __init__(self, pose_config, pose_checkpoint, det_config, det_checkpoint):
+    def __init__(self, pose_config, pose_checkpoint, det_config, det_checkpoint, device="cpu"):
         # initialize pose model
-        self.pose_model = init_pose_model(pose_config, pose_checkpoint)
+        self.pose_model = init_pose_model(pose_config, pose_checkpoint, device=device)
         # initialize detector
-        self.det_model = init_detector(det_config, det_checkpoint)
+        self.det_model = init_detector(det_config, det_checkpoint, device=device)
 
     def detect_pose(self, img):
         mmdet_results = inference_detector(self.det_model, img)
@@ -35,3 +35,4 @@ class PoseDetector():
             )
 
         return vis_result
+
